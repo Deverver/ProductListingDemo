@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
+    /**
+     * Genders; All, Unisex, Male, Female
+     * Designer; All, Nike, Gucci, Zara
+     * Brand; All, Premium, Casual, Budget
+     * Submit button to apply filters
+     */
 
     private final List<ProductListing> allProducts = List.of(
             new ProductListing("Men's Running Shoes", "male", "Nike", "premium"),
