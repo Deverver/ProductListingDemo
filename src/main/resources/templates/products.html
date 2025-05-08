@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Listings</title>
+</head>
+<body>
+<h1>Product Listings</h1>
+
+<form method="get" action="/products">
+    <!-- Gender Radio Input-->
+    <fieldset>
+        <legend>Gender</legend>
+        <label><input type="radio" name="gender" value="" th:checked="${selectedGender == null}" /> All</label>
+        <label><input type="radio" name="gender" value="unisex" th:checked="${selectedGender == 'unisex'}" /> Unisex</label>
+        <label><input type="radio" name="gender" value="male" th:checked="${selectedGender == 'male'}" /> Male</label>
+        <label><input type="radio" name="gender" value="female" th:checked="${selectedGender == 'female'}" /> Female</label>
+    </fieldset>
+
+    <!-- Designer ChoiceBox -->
+    <label for="designer">Designer:</label>
+    <select name="designer" id="designer">
+        <option value="" th:selected="${selectedDesigner == null}">All</option>
+        <option value="Nike" th:selected="${selectedDesigner == 'Nike'}">Nike</option>
+        <option value="Gucci" th:selected="${selectedDesigner == 'Gucci'}">Gucci</option>
+        <option value="Zara" th:selected="${selectedDesigner == 'Zara'}">Zara</option>
+    </select>
+
+    <!-- Brand ChoiceBox-->
+    <label for="brand">Brand:</label>
+    <select name="brand" id="brand">
+        <option value="" th:selected="${selectedBrand == null}">All</option>
+        <option value="premium" th:selected="${selectedBrand == 'premium'}">Premium</option>
+        <option value="casual" th:selected="${selectedBrand == 'casual'}">Casual</option>
+        <option value="budget" th:selected="${selectedBrand == 'budget'}">Budget</option>
+    </select>
+
+    <button type="submit">Apply Filters</button>
+</form>
+
+<!-- Hr (horizontal rule) is like break br, but it is used to create a separation between different sections -->
+<hr/>
+
+<ul>
+    <li th:each="product : ${products}" th:text="${product.name}">Product</li>
+</ul>
+
+</body>
+</html>
