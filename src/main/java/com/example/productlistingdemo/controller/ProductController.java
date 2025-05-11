@@ -68,4 +68,17 @@ public class ProductController {
         model.addAttribute("selectedBrand", brand);
         return "products";
     }
+
+
+    @GetMapping("/awarehover")
+    public String selectBoxTest01(Model model) {
+        return "/selectBoxAwareHower";
+    }
+
+    @GetMapping("/profile")
+    public String profileTest(Model model) {
+        return "/profile";
+    }
+
+
 }

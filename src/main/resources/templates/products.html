@@ -2,47 +2,160 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/products.css">
 </head>
 <body>
-<h1>Product Listings</h1>
+<div class="grid-layout">
 
-<form method="get" action="/products">
-    <!-- Gender Radio Input-->
-    <fieldset>
-        <legend>Gender</legend>
-        <label><input type="radio" name="gender" value="" th:checked="${selectedGender == null}" /> All</label>
-        <label><input type="radio" name="gender" value="unisex" th:checked="${selectedGender == 'unisex'}" /> Unisex</label>
-        <label><input type="radio" name="gender" value="male" th:checked="${selectedGender == 'male'}" /> Male</label>
-        <label><input type="radio" name="gender" value="female" th:checked="${selectedGender == 'female'}" /> Female</label>
-    </fieldset>
+    <header>
+        <h1>The Gilbert App ProductListings</h1>
+        <hr>
+    </header>
 
-    <!-- Designer ChoiceBox -->
-    <label for="designer">Designer:</label>
-    <select name="designer" id="designer">
-        <option value="" th:selected="${selectedDesigner == null}">All</option>
-        <option value="Nike" th:selected="${selectedDesigner == 'Nike'}">Nike</option>
-        <option value="Gucci" th:selected="${selectedDesigner == 'Gucci'}">Gucci</option>
-        <option value="Zara" th:selected="${selectedDesigner == 'Zara'}">Zara</option>
-    </select>
+    <nav class="filter-navbar">
+        <form method="get" action="/products">
+            <div class="filters-row">
 
-    <!-- Brand ChoiceBox-->
-    <label for="brand">Brand:</label>
-    <select name="brand" id="brand">
-        <option value="" th:selected="${selectedBrand == null}">All</option>
-        <option value="premium" th:selected="${selectedBrand == 'premium'}">Premium</option>
-        <option value="casual" th:selected="${selectedBrand == 'casual'}">Casual</option>
-        <option value="budget" th:selected="${selectedBrand == 'budget'}">Budget</option>
-    </select>
+                <!-- Gender ChoiceBox -->
+                <div class="select-wrapper">
+                    <label for="gender">Gender:</label>
+                    <select name="gender" id="gender">
+                        <!-- &#x2630;&#xFE0F; is equal to "Unicode Hex value"; + "Variation Selector"; this allows for most Unicode to appear more like emoticons -->
+                        <option value="" th:selected="${selectedGender == null}">&#x2630;&#xFE0F; All</option>
+                        <option value="unisex" th:selected="${selectedGender == 'unisex'}">&#x26A7;&#xFE0F; Unisex
+                        </option>
+                        <option value="male" th:selected="${selectedGender == 'male'}">&#x2642;&#xFE0F; Male</option>
+                        <option value="female" th:selected="${selectedGender == 'female'}">&#x2640;&#xFE0F; Female
+                        </option>
+                    </select>
+                </div>
 
-    <button type="submit">Apply Filters</button>
-</form>
+                <!-- Designer ChoiceBox -->
+                <div class="select-wrapper">
+                    <label for="designer">Designer:</label>
+                    <select name="designer" id="designer">
+                        <option value="" th:selected="${selectedDesigner == null}">&#x2630;&#xFE0F; All</option>
+                        <option value="Nike" th:selected="${selectedDesigner == 'Nike'}">&#x1104B;&#xFE0F; Nike</option>
+                        <option value="Gucci" th:selected="${selectedDesigner == 'Gucci'}">&#x1104B;&#xFE0F; Gucci
+                        </option>
+                        <option value="Zara" th:selected="${selectedDesigner == 'Zara'}">&#x1104B;&#xFE0F; Zara</option>
+                    </select>
+                </div>
 
-<!-- Hr (horizontal rule) is like break br, but it is used to create a separation between different sections -->
-<hr/>
+                <!-- Brand ChoiceBox-->
+                <div class="select-wrapper">
+                    <label for="brand">Category:</label>
+                    <select name="brand" id="brand">
+                        <option value="" th:selected="${selectedBrand == null}">&#x2630;&#xFE0F; All</option>
+                        <option value="premium" th:selected="${selectedBrand == 'premium'}">&#x1104B;&#xFE0F; Premium
+                        </option>
+                        <option value="casual" th:selected="${selectedBrand == 'casual'}">&#x1104B;&#xFE0F; Casual
+                        </option>
+                        <option value="budget" th:selected="${selectedBrand == 'budget'}">&#x1104B;&#xFE0F; Budget
+                        </option>
+                    </select>
+                </div>
 
-<ul>
-    <li th:each="product : ${products}" th:text="${product.name}">Product</li>
-</ul>
+                <!-- Filter Form Submit Button -->
+                <button type="submit" class="filter-submit-btn">Apply Filters</button>
 
+            </div>
+        </form>
+        <hr>
+    </nav>
+
+    <main>
+        <h1>This is the main element</h1>
+
+        <div class="product-listing-container">
+
+            <div class="product-listing" th:each="product : ${products}">
+                <div class="product-wrapper">
+                    <span th:text="${product.name}">Product</span>
+                    <a href="../index.html">
+                        <img src="https://www.thefashionisto.com/wp-content/uploads/2023/06/Mens-Suit-Fashion.jpg"
+                             alt="Product Picture"></a>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
+                concludaturque
+                et
+                eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus
+                repudiandae
+                nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+            <hr>
+        </div>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2025 John Doe</p>
+    </footer>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html">Søg</a></li>
+            <li><a href="../index.html">Favourites</a></li>
+            <li><a href="../index.html">Me/Sell</a></li>
+            <li><a href="../index.html">Notifications</a></li>
+        </ul>
+    </nav>
+
+
+</div>
 </body>
 </html>

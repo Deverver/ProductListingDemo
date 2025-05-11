@@ -1,0 +1,315 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+header {
+    grid-area: header;
+    display: block;
+    position: sticky;
+    top: 0;
+    padding: 1px;
+    background-color: #f8f0e5;
+}
+
+nav {
+    grid-area: nav;
+    display: block;
+    position: sticky;
+    bottom: 0;
+    background: black;
+url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10 px center;
+
+}
+
+nav ul {
+    list-style-type: none;
+    background: #423a26;
+url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10 px center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+    border-right: 1px solid #f8f0e5;
+    border-left: 1px solid #f8f0e5;
+}
+
+/* Nav Link Hover Styling */
+nav a:hover {
+    background-color: #004224;
+}
+
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: #f8f0e5;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+body {
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+
+    background-color: #f8f0e5;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+main {
+    grid-area: body;
+    display: block;
+}
+
+footer {
+    grid-area: footer;
+    display: block;
+}
+
+
+.grid-layout {
+    width: 100%;
+    display: grid;
+    grid:
+    "header header header" auto
+    "nav-filter nav-filter nav-filter" auto
+    "body body body" 1fr
+    "footer footer footer" auto
+    "nav nav nav" auto
+    / auto 1fr auto;
+    gap: 8px;
+}
+
+
+/* Style the select dropdown */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.filter-navbar {
+    grid-area: nav-filter;
+    display: block;
+    padding: 1px;
+    background-color: #f8f0e5;
+}
+
+
+/* Container for all filter selects */
+.filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Individual select wrapper */
+.select-wrapper {
+    flex: 1;
+    min-width: 200px;
+}
+
+
+/* Link Styling */
+.select-wrapper a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+/* Label Styling */
+.select-wrapper label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Styled native select */
+.select-wrapper select {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
+    background-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+/* Focus state */
+.select-wrapper select:focus {
+    border-color: #888;
+    outline: none;
+}
+
+
+.filter-submit-btn {
+    padding: 10px 16px;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color: #fff;
+    background-color: #333;
+    border: 1px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: 1.4rem;
+}
+
+/* Hover state */
+.filter-submit-btn:hover {
+    background-color: #555;
+    border-color: #555;
+}
+
+/* Focus state */
+.filter-submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Product Listing Section */
+.product-listing-container {
+    width: 100%;
+
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+
+    background-color: #f8f0e5;
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures no overflow issues */
+}
+
+
+.product-listing {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #423a26;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 100%; /* Ensures it stays inside container */
+    height: 100%;
+    min-height: 80px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-wrapper {
+    opacity: 1;
+    display: block;
+    position: inherit;
+    margin: auto;
+    min-height: 100px;
+    min-width: 200px;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: scale-down;
+    text-align: center;
+}
+
+.product-wrapper:hover {
+    opacity: 0.6;
+}
+
+.product-wrapper span {
+    display: flex;
+    margin: 0;
+    color: black;
+    font-size: 16px;
+}
+
+.product-listing p {
+    display: flex;
+    position: inherit;
+    margin: auto;
+    color: black;
+
+}
+
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* CSS For the Profile Tests Section */
+
+.profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+}
+
+.profile-info {
+    color: grey;
+    font-size: 18px;
+}
+
+
+/* Optional: adjust spacing for mobile */
+@media (max-width: 900px) {
+    .filters-row {
+        flex-direction: column;
+    }
+
+    .grid-layout {
+        width: 100%;
+        display: grid;
+        grid:
+    "header" auto
+    "nav-filter" auto
+    "body" 1fr
+    "footer" auto
+    "nav" auto
+    / auto 1fr auto;
+        gap: 8px;
+    }
+
+
+    /* Product Listing Section */
+    .product-listing-container {
+        width: 100%;
+        display: grid;
+        grid-template-rows: repeat(auto-fit, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        gap: 8px;
+
+        background-color: #f8f0e5;
+        color: black;
+        text-align: left;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        overflow: hidden; /* Ensures no overflow issues */
+    }
+
+}
