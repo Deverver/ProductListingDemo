@@ -15,15 +15,18 @@ header {
 
 nav {
     grid-area: nav;
+    justify-items: stretch;
+    width : 100%;
     display: block;
     position: sticky;
     bottom: 0;
     background: black;
-url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10 px center;
+url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat center;
 
 }
 
 nav ul {
+    width: 100%;
     list-style-type: none;
     background: #423a26;
 url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10 px center;
@@ -43,9 +46,11 @@ nav a:hover {
     background-color: #004224;
 }
 
-
 li:last-child {
     border-right: none;
+}
+li:first-child {
+    border-left: none;
 }
 
 li a {
@@ -69,6 +74,7 @@ body {
 main {
     grid-area: body;
     display: block;
+    width: 100%;
 }
 
 footer {
@@ -76,7 +82,8 @@ footer {
     display: block;
 }
 
-
+/* Grid layout Class */
+/* Standard, no media query */
 .grid-layout {
     width: 100%;
     display: grid;
@@ -91,22 +98,24 @@ footer {
 }
 
 
-/* Style the select dropdown */
+/* Style The Select Dropdown */
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
+/* Navbar For Filter Bar */
 .filter-navbar {
     grid-area: nav-filter;
     display: block;
-    padding: 1px;
+    flex-wrap: wrap;
+    margin: auto;
     background-color: #f8f0e5;
 }
 
 
-/* Container for all filter selects */
+/* Container For Filter Selects Elements */
 .filters-row {
     display: flex;
     flex-wrap: wrap;
@@ -114,7 +123,7 @@ select {
     margin-bottom: 1.5rem;
 }
 
-/* Individual select wrapper */
+/* Individual Select Wrapper */
 .select-wrapper {
     flex: 1;
     min-width: 200px;
@@ -139,7 +148,7 @@ select {
     color: #333;
 }
 
-/* Styled native select */
+/* Styled Native Select */
 .select-wrapper select {
     width: 100%;
     padding: 10px 40px 10px 12px;
@@ -163,7 +172,7 @@ select {
     outline: none;
 }
 
-
+/* Submit Button Styling*/
 .filter-submit-btn {
     padding: 10px 16px;
     font-size: 16px;
@@ -192,24 +201,26 @@ select {
 
 /* Product Listing Section */
 .product-listing-container {
-    width: 100%;
-
     display: grid;
     grid-template-rows: repeat(auto-fit, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    flex-wrap: wrap;
 
+    width: 100%;
+    gap: 10px;
+    padding: 0;
     background-color: #f8f0e5;
     color: black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Ensures no overflow issues */
 }
 
-
 .product-listing {
-    display: flex;
+    display: block;
+    flex-wrap: wrap;
     justify-content: center;
     border: 1px solid #423a26;
+    padding-left: 5px;
     border-radius: 8px;
     background-color: #fff;
     width: 100%; /* Ensures it stays inside container */
@@ -220,7 +231,7 @@ select {
 
 .product-wrapper {
     opacity: 1;
-    display: block;
+    display: -ms-flexbox;
     position: inherit;
     margin: auto;
     min-height: 100px;
@@ -228,7 +239,6 @@ select {
     max-height: 100%;
     max-width: 100%;
     object-fit: scale-down;
-    text-align: center;
 }
 
 .product-wrapper:hover {
@@ -247,7 +257,6 @@ select {
     position: inherit;
     margin: auto;
     color: black;
-
 }
 
 
@@ -267,7 +276,14 @@ select {
     max-width: 300px;
     margin: auto;
     text-align: center;
+    object-fit: scale-down;
 }
+
+.profile-card ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 
 .profile-info {
     color: grey;
@@ -276,7 +292,7 @@ select {
 
 
 /* Optional: adjust spacing for mobile */
-@media (max-width: 900px) {
+@media (max-width: 830px) {
     .filters-row {
         flex-direction: column;
     }
