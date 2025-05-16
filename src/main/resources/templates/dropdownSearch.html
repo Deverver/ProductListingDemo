@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            padding: 50px 200px;
+            background-color: #f8f0e5;
+        }
+
+        .dropdown-box {
+            width: 300px;
+            background-color: #fff;
+        }
+
+        .dropdown-box input {
+            width: 100%;
+            border: 1px solid rgb(120, 120, 120);
+            outline: none;
+            padding: 3px 5px;
+        }
+
+        .dropdown-box .selected-item {
+            position: relative;
+        }
+
+        .dropdown-box .selected-item::after {
+            content: " ";
+            width: 3px;
+            height: 3px;
+            border: 2px solid;
+            border-color: transparent rgb(120, 120, 120) rgb(120, 120, 120) transparent;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translatey(-70%) rotate(45deg);
+        }
+
+        .dropdown-box .selected-item,
+        .dropdown-box .selected-item input {
+            cursor: pointer;
+        }
+
+
+        .dropdown-box .dropdown-content {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+        }
+
+        .dropdown-box .dropdown-content .search-input {
+            padding: 5px;
+        }
+
+        .dropdown-box .dropdown-content ul {
+            list-style: none;
+        }
+
+        .dropdown-box .dropdown-content ul li {
+            font-size: 0.8rem;
+            padding: 2px 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-box .dropdown-content ul li:hover {
+            background-color: rgb(230, 230, 230);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="dropdown-box">
+    <div class="selected-item">
+        <label for="selectedInput"></label>
+        <input id="selectedInput" th:type="text" name="all" value="Select" readonly="readonly">
+    </div>
+
+    <div class="dropdown-content">
+
+        <div class="search-input">
+            <label for="searchedInput"></label>
+            <input id="searchedInput" th:type="text" name="">
+        </div>
+
+        <ul>
+            <li class="dropdown-item active">Select</li>
+            <li class="dropdown-item">Option 1</li>
+            <li class="dropdown-item">Option 2</li>
+            <li class="dropdown-item">Option 3</li>
+            <li class="dropdown-item">Option 4</li>
+            <li class="dropdown-item">Option 5</li>
+            <li class="dropdown-item">Option 6</li>
+            <li class="dropdown-item">Option 7</li>
+            <li class="dropdown-item">Option 8</li>
+            <li class="dropdown-item">Option 9</li>
+            <li class="dropdown-item">Option 10</li>
+            <li class="dropdown-item">Option 11</li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>

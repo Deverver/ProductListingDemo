@@ -40,6 +40,7 @@ public class ProductController {
             new ProductListing("Unisex Backpack", "unisex", "Nike", "casual"),
             new ProductListing("Women's Yoga Pants", "female", "Nike", "casual"),
             new ProductListing("Men's Hiking Boots", "male", "Nike", "premium")
+
     );
 
 
@@ -79,6 +80,30 @@ public class ProductController {
     public String profileTest(Model model) {
         return "/profile";
     }
+
+
+    @GetMapping("/dropdownForm")
+    public String dropdownSearch(
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String designer,
+            @RequestParam(required = false) String brand,
+            Model model
+    ) {
+        List<ProductListing> filtered = allProducts.stream()
+                .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
+                .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
+                .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
+
+        model.addAttribute("products", filtered);
+        model.addAttribute("selectedGender", gender);
+        model.addAttribute("selectedDesigner", designer);
+        model.addAttribute("selectedBrand", brand);
+        return "/dropdownSearch";
+    }
+
+
+
 
 
 }
