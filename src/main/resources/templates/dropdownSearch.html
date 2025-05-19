@@ -14,21 +14,29 @@
 
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             padding: 50px 200px;
             background-color: #f8f0e5;
         }
 
         .dropdown-box {
             width: 300px;
-            background-color: #fff;
+            border-radius: 5px;
+            background-color: #f8f0e5;
+            position: relative;
         }
 
         .dropdown-box input {
             width: 100%;
             border: 1px solid rgb(120, 120, 120);
+            border-radius: 12px;
             outline: none;
             padding: 3px 5px;
+            color: rgba(66, 58, 38, 0.9);
+            font-weight: bold;
+            font-family: Segoe UI, sans-serif;
+
         }
 
         .dropdown-box .selected-item {
@@ -52,10 +60,20 @@
             cursor: pointer;
         }
 
-
         .dropdown-box .dropdown-content {
+            width: 100%;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            background-color: rgb(255, 255, 255);
             border-radius: 5px;
+            max-height: 256px;
+            overflow: auto;
+            display: none;
+            position: absolute;
+            z-index: 99;
+        }
+
+        .dropdown-box.active .dropdown-content {
+            display: block;
         }
 
         .dropdown-box .dropdown-content .search-input {
@@ -72,9 +90,21 @@
             cursor: pointer;
         }
 
-        .dropdown-box .dropdown-content ul li:hover {
-            background-color: rgb(230, 230, 230);
+        .dropdown-box .dropdown-content ul li.hide {
+            display: none;
         }
+
+        .dropdown-box .dropdown-content ul li:hover {
+            background-color: rgba(66, 58, 38, 0.1);
+        }
+
+        .dropdown-box .dropdown-content ul li.active {
+            background-color: rgba(66, 58, 38, 0.85);
+            color: #f8f0e5;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
 
     </style>
 
@@ -96,21 +126,138 @@
 
         <ul>
             <li class="dropdown-item active">Select</li>
-            <li class="dropdown-item">Option 1</li>
-            <li class="dropdown-item">Option 2</li>
-            <li class="dropdown-item">Option 3</li>
-            <li class="dropdown-item">Option 4</li>
-            <li class="dropdown-item">Option 5</li>
-            <li class="dropdown-item">Option 6</li>
-            <li class="dropdown-item">Option 7</li>
-            <li class="dropdown-item">Option 8</li>
-            <li class="dropdown-item">Option 9</li>
-            <li class="dropdown-item">Option 10</li>
-            <li class="dropdown-item">Option 11</li>
+            <li class="dropdown-item">Abc Option 1</li>
+            <li class="dropdown-item">Abc Option 2</li>
+            <li class="dropdown-item">A Option 3</li>
+            <li class="dropdown-item">B Option 4</li>
+            <li class="dropdown-item">B Option 5</li>
+            <li class="dropdown-item">C Option 6</li>
+            <li class="dropdown-item">C Option 7</li>
+            <li class="dropdown-item">C Option 8</li>
+            <li class="dropdown-item">D Option 9</li>
+            <li class="dropdown-item">D Option 10</li>
+            <li class="dropdown-item">D Option 11</li>
+            <li class="dropdown-item">E Option 12</li>
+            <li class="dropdown-item">F Option 13</li>
+            <li class="dropdown-item">G Option 14</li>
+            <li class="dropdown-item">H Option 15</li>
+            <li class="dropdown-item">H Option 16</li>
+            <li class="dropdown-item">I Option 17</li>
+            <li class="dropdown-item">I Option 18</li>
+            <li class="dropdown-item">J Option 19</li>
+            <li class="dropdown-item">J Option 20</li>
+            <li class="dropdown-item">J Option 21</li>
         </ul>
     </div>
 
 </div>
+
+<p>
+    Primær farve: Grøn RGB: 0, 66, 36
+    HEX: #004224
+    CMYK:100%, 0%, 45%, 74%
+    HSV:153°, 100%, 26%
+    HSL:153°, 100%, 13%
+
+    Text Color: Hvid
+    RGB: 248, 240, 229
+    HEX: #f8f0e5
+    CMYK: 0%, 3%, 8%, 3%
+    HSV: 35°, 8%, 97%
+    HSL: 35°, 54%, 93%
+
+    Accent Farve: Brun
+    RGB: 66, 58, 38
+    HEX: #423a26
+    CMYK: 0%, 12%, 42%, 74%
+    HSV: 43°, 42%, 26%
+    Primær farve: Grøn
+    RGB: 0, 66, 36
+    HEX: #004224
+    CMYK:100%, 0%, 45%, 74%
+    HSV:153°, 100%, 26%
+    HSL:153°, 100%, 13%
+
+    Text Color: Hvid
+    RGB: 248, 240, 229
+    HEX: #f8f0e5
+    CMYK: 0%, 3%, 8%, 3%
+    HSV: 35°, 8%, 97%
+    HSL: 35°, 54%, 93%
+
+    Accent Farve: Brun
+    RGB: 66, 58, 38
+    HEX: #423a26
+    CMYK: 0%, 12%, 42%, 74%
+    HSV: 43°, 42%, 26%
+</p>
+
+<script>
+    window.addEventListener("load", () => {
+
+        window.addEventListener("click", windowClickEvent => {
+            const dropdown = document.querySelector(".dropdown-box");
+            const dropdownContent = document.querySelector(".dropdown-content");
+            const selectedItem = document.querySelector(".selected-item");
+
+            if (dropdown.classList.contains("active")) {
+                if (!dropdownContent.contains(windowClickEvent.target)) {
+                    closeDropdown();
+                }
+            } else if (selectedItem.contains(windowClickEvent.target)) {
+                openDropdown();
+            }
+
+        })
+
+        const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+        dropdownItems.forEach(dropdownItem => {
+            dropdownItem.addEventListener("click", () => {
+                dropdownItems.forEach(innerDropdownItem => {
+                    innerDropdownItem.classList.remove("active");
+                })
+
+                dropdownItem.classList.add("active");
+
+                const selectedItemInput = document.querySelector(".selected-item input");
+
+                selectedItemInput.value = dropdownItem.innerHTML;
+                closeDropdown();
+
+            })
+        })
+
+        const searchInput = document.querySelector(".search-input input");
+
+        searchInput.addEventListener("keyup", () => {
+            const filter = searchInput.value.toLocaleLowerCase();
+
+            dropdownItems.forEach(dropdownItem => {
+                if(dropdownItem.innerHTML.toLocaleLowerCase().startsWith(filter)){
+                    dropdownItem.classList.remove("hide");
+                }
+                else{
+                    dropdownItem.classList.add("hide");
+                }
+
+
+            })
+        })
+
+    })
+
+    function openDropdown() {
+        const dropdown = document.querySelector(".dropdown-box");
+        dropdown.classList.add("active");
+    }
+
+    function closeDropdown() {
+        const dropdown = document.querySelector(".dropdown-box");
+        dropdown.classList.remove("active");
+    }
+
+</script>
 
 
 </body>
