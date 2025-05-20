@@ -21,7 +21,7 @@
         }
 
         .dropdown-box {
-            width: 300px;
+            width: 100px;
             border-radius: 5px;
             background-color: #f8f0e5;
             position: relative;
@@ -101,8 +101,26 @@
         .dropdown-box .dropdown-content ul li.active {
             background-color: rgba(66, 58, 38, 0.85);
             color: #f8f0e5;
-            font-weight: bold;
-            font-size: 0.95em;
+        }
+
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-submit-btn {
+            padding: 10px 16px;
+            font-size: 16px;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: #fff;
+            background-color: #333;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            margin-top: 1.4rem;
         }
 
 
@@ -110,87 +128,82 @@
 
 </head>
 <body>
+<form method="get" th:action="@{/filter}" th:object="${filterForm}">
+    <div class="filters-row">
 
-<div class="dropdown-box">
-    <div class="selected-item">
-        <label for="selectedInput"></label>
-        <input id="selectedInput" th:type="text" name="all" value="Select" readonly="readonly">
-    </div>
-
-    <div class="dropdown-content">
-
-        <div class="search-input">
-            <label for="searchedInput"></label>
-            <input id="searchedInput" th:type="text" name="">
+        <div class="dropdown-box">
+            <label for="gender">gender:</label>
+            <div class="selected-item">
+                <input name="gender" id="gender" readonly="readonly" value="">
+            </div>
+            <div class="dropdown-content">
+                <div class="search-input">
+                    <label for="genderSearchedInput"></label>
+                    <input id="genderSearchedInput" th:type="text" name="">
+                </div>
+                <ul th:each="tag : ${tagsForGender}">
+                    <li class="dropdown-item" th:selected="${selectedGender == tag.getTagValue()}"
+                        th:text="${tag.getTagValue()}">Option Name
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <ul>
-            <li class="dropdown-item active">Select</li>
-            <li class="dropdown-item">Abc Option 1</li>
-            <li class="dropdown-item">Abc Option 2</li>
-            <li class="dropdown-item">A Option 3</li>
-            <li class="dropdown-item">B Option 4</li>
-            <li class="dropdown-item">B Option 5</li>
-            <li class="dropdown-item">C Option 6</li>
-            <li class="dropdown-item">C Option 7</li>
-            <li class="dropdown-item">C Option 8</li>
-            <li class="dropdown-item">D Option 9</li>
-            <li class="dropdown-item">D Option 10</li>
-            <li class="dropdown-item">D Option 11</li>
-            <li class="dropdown-item">E Option 12</li>
-            <li class="dropdown-item">F Option 13</li>
-            <li class="dropdown-item">G Option 14</li>
-            <li class="dropdown-item">H Option 15</li>
-            <li class="dropdown-item">H Option 16</li>
-            <li class="dropdown-item">I Option 17</li>
-            <li class="dropdown-item">I Option 18</li>
-            <li class="dropdown-item">J Option 19</li>
-            <li class="dropdown-item">J Option 20</li>
-            <li class="dropdown-item">J Option 21</li>
-        </ul>
-    </div>
 
+        <div class="dropdown-box active">
+            <label for="designer">designer:</label>
+            <div class="selected-item">
+                <input name="designer" id="designer" readonly="readonly" value="">
+            </div>
+            <div class="dropdown-content">
+                <div class="search-input">
+                    <label for="designerSearchedInput"></label>
+                    <input id="designerSearchedInput" th:type="text" name="">
+                </div>
+                <ul th:each="tag : ${tagsForDesigner}">
+                    <li class="dropdown-item" th:selected="${selectedDesigner == tag.getTagValue()}"
+                        th:text="${tag.getTagValue()}">Option Name
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="dropdown-box active">
+            <label for="brand">brand::</label>
+            <div class="selected-item">
+                <input name="brand" id="brand" readonly="readonly" value="">
+            </div>
+            <div class="dropdown-content">
+                <div class="search-input">
+                    <label for="brandSearchedInput"></label>
+                    <input id="brandSearchedInput" th:type="text" name="">
+                </div>
+                <ul th:each="tag : ${tagsForBrand}">
+                    <li class="dropdown-item" th:selected="${selectedBrand == tag.getTagValue()}"
+                        th:text="${tag.getTagValue()}">Option Name
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter Form Submit Button -->
+        <button type="submit" class="filter-submit-btn">Apply Filters</button>
+
+    </div>
+</form>
+
+<hr>
+
+<div class="product-listing" th:each="product : ${products}">
+    <div class="product-wrapper">
+        <span th:text="${product.name}">Product</span>
+        <a href="../index.html">
+            <img src="https://www.thefashionisto.com/wp-content/uploads/2023/06/Mens-Suit-Fashion.jpg"
+                 style="width:100px ; height:100px"
+                 alt="Product Picture"></a>
+    </div>
 </div>
 
-<p>
-    Primær farve: Grøn RGB: 0, 66, 36
-    HEX: #004224
-    CMYK:100%, 0%, 45%, 74%
-    HSV:153°, 100%, 26%
-    HSL:153°, 100%, 13%
-
-    Text Color: Hvid
-    RGB: 248, 240, 229
-    HEX: #f8f0e5
-    CMYK: 0%, 3%, 8%, 3%
-    HSV: 35°, 8%, 97%
-    HSL: 35°, 54%, 93%
-
-    Accent Farve: Brun
-    RGB: 66, 58, 38
-    HEX: #423a26
-    CMYK: 0%, 12%, 42%, 74%
-    HSV: 43°, 42%, 26%
-    Primær farve: Grøn
-    RGB: 0, 66, 36
-    HEX: #004224
-    CMYK:100%, 0%, 45%, 74%
-    HSV:153°, 100%, 26%
-    HSL:153°, 100%, 13%
-
-    Text Color: Hvid
-    RGB: 248, 240, 229
-    HEX: #f8f0e5
-    CMYK: 0%, 3%, 8%, 3%
-    HSV: 35°, 8%, 97%
-    HSL: 35°, 54%, 93%
-
-    Accent Farve: Brun
-    RGB: 66, 58, 38
-    HEX: #423a26
-    CMYK: 0%, 12%, 42%, 74%
-    HSV: 43°, 42%, 26%
-</p>
 
 <script>
     window.addEventListener("load", () => {
@@ -234,10 +247,9 @@
             const filter = searchInput.value.toLocaleLowerCase();
 
             dropdownItems.forEach(dropdownItem => {
-                if(dropdownItem.innerHTML.toLocaleLowerCase().startsWith(filter)){
+                if (dropdownItem.innerHTML.toLocaleLowerCase().startsWith(filter)) {
                     dropdownItem.classList.remove("hide");
-                }
-                else{
+                } else {
                     dropdownItem.classList.add("hide");
                 }
 

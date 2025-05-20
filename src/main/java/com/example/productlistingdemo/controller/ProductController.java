@@ -2,9 +2,12 @@ package com.example.productlistingdemo.controller;
 
 
 import com.example.productlistingdemo.model.ProductListing;
+import com.example.productlistingdemo.model.TagFilterForm;
+import com.example.productlistingdemo.model.productTag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -43,6 +46,24 @@ public class ProductController {
 
     );
 
+    private final List<productTag> genderTags = List.of(
+            new productTag("Unisex"),
+            new productTag("Male"),
+            new productTag("Female")
+    );
+
+    private final List<productTag> designerTags = List.of(
+            new productTag("Nike"),
+            new productTag("Gucci"),
+            new productTag("Zara")
+    );
+
+    private final List<productTag> brandTags = List.of(
+            new productTag("Premium"),
+            new productTag("Casual"),
+            new productTag("Budget")
+    );
+
 
     @GetMapping("/")
     public String home(Model model) {
@@ -67,6 +88,9 @@ public class ProductController {
         model.addAttribute("selectedGender", gender);
         model.addAttribute("selectedDesigner", designer);
         model.addAttribute("selectedBrand", brand);
+
+
+
         return "products";
     }
 
@@ -89,6 +113,44 @@ public class ProductController {
             @RequestParam(required = false) String brand,
             Model model
     ) {
+        List<productTag> tagsForGenders = genderTags.stream().toList();
+        List<productTag> tagsForDesigners = designerTags.stream().toList();
+        List<productTag> tagsForBrands = brandTags.stream().toList();
+
+        model.addAttribute("tagsForGender", tagsForGenders);
+        model.addAttribute("tagsForDesigner", tagsForDesigners);
+        model.addAttribute("tagsForBrand", tagsForBrands);
+
+
+        List<ProductListing> filtered = allProducts.stream()
+                .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
+                .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
+                .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
+
+        model.addAttribute("products", filtered);
+        return "/dropdownSearch";
+    }
+
+
+    @GetMapping("/filter")
+    public String filter(
+            @ModelAttribute TagFilterForm tagFilterForm,
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String designer,
+            @RequestParam(required = false) String brand,
+            Model model
+    ) {
+        List<productTag> tagsForGenders = genderTags.stream().toList();
+        List<productTag> tagsForDesigners = designerTags.stream().toList();
+        List<productTag> tagsForBrands = brandTags.stream().toList();
+
+        model.addAttribute("tagsForGender", tagsForGenders);
+        model.addAttribute("tagsForDesigner", tagsForDesigners);
+        model.addAttribute("tagsForBrand", tagsForBrands);
+        model.addAttribute("filterForm", tagFilterForm);
+
+
         List<ProductListing> filtered = allProducts.stream()
                 .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
                 .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
@@ -99,7 +161,8 @@ public class ProductController {
         model.addAttribute("selectedGender", gender);
         model.addAttribute("selectedDesigner", designer);
         model.addAttribute("selectedBrand", brand);
-        return "/dropdownSearch";
+
+        return "dropdownSearch";
     }
 
 
