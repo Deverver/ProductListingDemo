@@ -33,7 +33,7 @@
             border-radius: 12px;
             outline: none;
             padding: 3px 5px;
-            color: rgba(66, 58, 38, 0.9);
+            color: rgba(0, 0, 0, 1);
             font-weight: bold;
             font-family: Segoe UI, sans-serif;
 
@@ -128,13 +128,13 @@
 
 </head>
 <body>
-<form method="get" th:action="@{/filter}" th:object="${filterForm}">
+<form method="get" th:action="@{/filter}" th:object="${selectedTagsForm}">
     <div class="filters-row">
 
         <div class="dropdown-box">
-            <label for="gender">gender:</label>
+            <label for="gender"></label>
             <div class="selected-item">
-                <input name="gender" id="gender" readonly="readonly" value="">
+                <input name="gender" id="gender" readonly="readonly" value="" th:value="${selectedGender}" th:placeholder="${(selectedGender == null or #strings.isEmpty(selectedGender)) ? 'Gender' : selectedGender}" th:field="*{gender}" />
             </div>
             <div class="dropdown-content">
                 <div class="search-input">
@@ -150,10 +150,10 @@
         </div>
 
 
-        <div class="dropdown-box active">
-            <label for="designer">designer:</label>
+        <div class="dropdown-box">
+            <label for="designer"></label>
             <div class="selected-item">
-                <input name="designer" id="designer" readonly="readonly" value="">
+                <input name="designer" id="designer" readonly="readonly" value="" th:value="${selectedDesigner}" th:placeholder="${(selectedDesigner == null or #strings.isEmpty(selectedDesigner)) ? 'Designer' : selectedDesigner}" th:field="*{designer}" />
             </div>
             <div class="dropdown-content">
                 <div class="search-input">
@@ -168,10 +168,10 @@
             </div>
         </div>
 
-        <div class="dropdown-box active">
-            <label for="brand">brand::</label>
+        <div class="dropdown-box">
+            <label for="brand"></label>
             <div class="selected-item">
-                <input name="brand" id="brand" readonly="readonly" value="">
+                <input name="brand" id="brand" readonly="readonly" value="" th:value="${selectedBrand}" th:placeholder="${(selectedBrand == null or #strings.isEmpty(selectedBrand)) ? 'Brand' : sselectedBrand}" th:field="*{brand}" />
             </div>
             <div class="dropdown-content">
                 <div class="search-input">
@@ -192,8 +192,6 @@
     </div>
 </form>
 
-<hr>
-
 <div class="product-listing" th:each="product : ${products}">
     <div class="product-wrapper">
         <span th:text="${product.name}">Product</span>
@@ -205,69 +203,49 @@
 </div>
 
 
+
+
+
 <script>
     window.addEventListener("load", () => {
 
-        window.addEventListener("click", windowClickEvent => {
-            const dropdown = document.querySelector(".dropdown-box");
-            const dropdownContent = document.querySelector(".dropdown-content");
-            const selectedItem = document.querySelector(".selected-item");
+        document.querySelectorAll(".dropdown-box").forEach(dropdown => {
+            const selectedItem = dropdown.querySelector(".selected-item");
+            const dropdownContent = dropdown.querySelector(".dropdown-content");
+            const dropdownItems = dropdown.querySelectorAll(".dropdown-item");
+            const searchInput = dropdown.querySelector(".search-input input");
 
-            if (dropdown.classList.contains("active")) {
-                if (!dropdownContent.contains(windowClickEvent.target)) {
-                    closeDropdown();
+
+            selectedItem.addEventListener("click", e => {
+                e.stopPropagation();
+                dropdown.classList.toggle("active");
+            });
+
+            window.addEventListener("click", e => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove("active");
                 }
-            } else if (selectedItem.contains(windowClickEvent.target)) {
-                openDropdown();
-            }
+            });
 
-        })
 
-        const dropdownItems = document.querySelectorAll(".dropdown-item");
-
-        dropdownItems.forEach(dropdownItem => {
-            dropdownItem.addEventListener("click", () => {
-                dropdownItems.forEach(innerDropdownItem => {
-                    innerDropdownItem.classList.remove("active");
+            dropdownItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    dropdownItems.forEach(i => i.classList.remove("active"));
+                    item.classList.add("active");
+                    selectedItem.querySelector("input").value = item.textContent;
+                    dropdown.classList.remove("active");
                 })
+            })
 
-                dropdownItem.classList.add("active");
-
-                const selectedItemInput = document.querySelector(".selected-item input");
-
-                selectedItemInput.value = dropdownItem.innerHTML;
-                closeDropdown();
-
+            searchInput.addEventListener("keyup", () => {
+                const filter = searchInput.value.toLowerCase();
+                dropdownItems.forEach(item => {
+                    item.classList.toggle("hide", !item.textContent.toLowerCase().startsWith(filter)
+                    );
+                })
             })
         })
-
-        const searchInput = document.querySelector(".search-input input");
-
-        searchInput.addEventListener("keyup", () => {
-            const filter = searchInput.value.toLocaleLowerCase();
-
-            dropdownItems.forEach(dropdownItem => {
-                if (dropdownItem.innerHTML.toLocaleLowerCase().startsWith(filter)) {
-                    dropdownItem.classList.remove("hide");
-                } else {
-                    dropdownItem.classList.add("hide");
-                }
-
-
-            })
-        })
-
-    })
-
-    function openDropdown() {
-        const dropdown = document.querySelector(".dropdown-box");
-        dropdown.classList.add("active");
-    }
-
-    function closeDropdown() {
-        const dropdown = document.querySelector(".dropdown-box");
-        dropdown.classList.remove("active");
-    }
+    });
 
 </script>
 

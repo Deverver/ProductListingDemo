@@ -122,20 +122,26 @@ public class ProductController {
         model.addAttribute("tagsForBrand", tagsForBrands);
 
 
+
         List<ProductListing> filtered = allProducts.stream()
                 .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
                 .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
                 .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(brand))
                 .collect(Collectors.toList());
 
+
         model.addAttribute("products", filtered);
+        model.addAttribute("selectedGender", gender);
+        model.addAttribute("selectedDesigner", designer);
+        model.addAttribute("selectedBrand", brand);
+        model.addAttribute("selectedTagsForm", new TagFilterForm());
         return "/dropdownSearch";
     }
 
 
     @GetMapping("/filter")
     public String filter(
-            @ModelAttribute TagFilterForm tagFilterForm,
+            @ModelAttribute("selectedTagsForm") TagFilterForm tagFilterForm,
             @RequestParam(required = false) String gender,
             @RequestParam(required = false) String designer,
             @RequestParam(required = false) String brand,
@@ -152,9 +158,9 @@ public class ProductController {
 
 
         List<ProductListing> filtered = allProducts.stream()
-                .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
-                .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
-                .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(brand))
+                .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(tagFilterForm.getGender()))
+                .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(tagFilterForm.getDesigner()))
+                .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(tagFilterForm.getBrand()))
                 .collect(Collectors.toList());
 
         model.addAttribute("products", filtered);
