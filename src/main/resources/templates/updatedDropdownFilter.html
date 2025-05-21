@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-    <title>Product Listings</title>
+    <meta charset="UTF-8">
+    <title>Filtered Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
@@ -123,52 +125,71 @@
             margin-top: 1.4rem;
         }
 
-
     </style>
 
 </head>
 <body>
 
-<form method="get" action="/dropdownForm">
+
+<h1>Product Listings</h1>
+
+
+<form method="get" th:action="@{/updatedForm}" th:object="${tagFilterForm}">
     <div class="filters-row">
+
+        <!-- For each category that has been supplied, create at dropdown-box containing the data from the hashmap, where category is the key. -->
         <div th:each="entry : ${categoryTagsMap}" class="dropdown-box">
-            <label th:for="${entry.key.name.toLowerCase()}"></label>
+
+
             <div class="selected-item">
-                <input th:id="${entry.key.name.toLowerCase()}"
-                       th:name="${entry.key.name.toLowerCase()}"
-                       readonly="readonly"
-                       th:value="${selectedValues[entry.key.name.toLowerCase()]}"
-                       th:placeholder="${#strings.isEmpty(selectedValues[entry.key.name.toLowerCase()]) ? entry.key.name : selectedValues[entry.key.name.toLowerCase()]}" />
+                <!-- input containing selected data, sets data into the filter object on submit -->
+                <label th:for="${#strings.toLowerCase(entry.key.name)}">
+                    <input th:field="*{__${#strings.toLowerCase(entry.key.name)}__}"
+                           th:id="${#strings.toLowerCase(entry.key.name)}"
+                           th:name="${#strings.toLowerCase(entry.key.name)}"
+                           th:value="*{__${#strings.toLowerCase(entry.key.name)}__}" readonly="readonly"/>
+                </label>
             </div>
 
+            <!-- This div contains CSS-class for the input used to search in that specific category -->
             <div class="dropdown-content">
                 <div class="search-input">
-                    <label th:for="${entry.key.name.toLowerCase()}SearchedInput"></label>
-                    <input th:id="${entry.key.name.toLowerCase()}SearchedInput" type="text" />
+                    <label th:id="${#strings.toLowerCase(entry.key.name)} + 'SearchedInput'">
+                        <input th:id="${#strings.toLowerCase(entry.key.name)} + 'SearchedInput'" type="text"/>
+                    </label>
                 </div>
-                <ul>
-                    <li th:each="tag : ${entry.value}"
-                        class="dropdown-item"
-                        th:data-value="${tag.tagValue}"
-                        th:text="${tag.tagValue}">
+
+                <!-- For each "value"/Tag that the Category contains, create at list object contains its data. -->
+                <ul th:each="tag : ${entry.value}">
+                    <li class="dropdown-item"
+                        th:text="${tag.tagValue}"
+                        th:data-value="${tag.tagValue}">
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
 
-    <button type="submit" class="filter-submit-btn">Filter</button>
+        <!-- Sets searched input data into the filter object on submit -->
+        <label th:for="FilterSearchInput">
+            <input th:id="FilterSearchInput" type="text"
+                   th:field="*{searchText}" placeholder="Search..."/>
+        </label>
+
+        <button type="submit" class="filter-submit-btn">Apply Filters</button>
+
+    </div>
 </form>
 
 
-<div class="product-listing" th:each="product : ${products}">
+<div class="product-listing"
+     th:if="${products != null}"
+     th:each="product : ${products}">
     <div class="product-wrapper">
-        <span th:text="${product.name}">Product</span>
+        <span th:text="${#strings.toLowerCase(product.name)}">Product</span>
         <a href="../index.html">
-            <img src="https://www.thefashionisto.com/wp-content/uploads/2023/06/Mens-Suit-Fashion.jpg"
+            <img src="https://haieng.com/wp-content/uploads/2017/10/test-image-500x500.jpg"
                  style="width:100px ; height:100px"
-                 alt="Product Picture">
-        </a>
+                 alt="Product Picture"></a>
     </div>
 </div>
 
@@ -194,7 +215,6 @@
                 }
             });
 
-
             dropdownItems.forEach(item => {
                 item.addEventListener("click", () => {
                     dropdownItems.forEach(i => i.classList.remove("active"));
@@ -215,7 +235,6 @@
     });
 
 </script>
-
 
 </body>
 </html>

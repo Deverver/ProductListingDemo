@@ -1,14 +1,16 @@
 package com.example.productlistingdemo.model;
 
-public class productTag {
+public class ProductTag {
+
     private int id;
     private String tagValue;
 
-
-    public productTag(String tagValue) {
-        this.tagValue = tagValue;
+    public ProductTag() {
     }
 
+    public ProductTag(String tagValue) {
+        this.tagValue = tagValue;
+    }
 
     public String getTagValue() {
         return tagValue;
@@ -16,6 +18,11 @@ public class productTag {
 
     public void setTagValue(String tagValue) {
         this.tagValue = tagValue;
+    }
+
+    @Override
+    public String toString() {
+        return tagValue;
     }
 
 }
