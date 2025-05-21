@@ -39,3 +39,4 @@ public class TagFilterForm {
         this.brand = brand;
     }
 }
+

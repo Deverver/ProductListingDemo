@@ -67,7 +67,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String home(Model model) {
-        return "redirect:/products";
+        return "redirect:/dropdownForm";
     }
 
 
