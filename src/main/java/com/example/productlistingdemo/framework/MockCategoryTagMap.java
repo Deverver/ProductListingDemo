@@ -30,7 +30,7 @@ public class MockCategoryTagMap {
             new ProductTag("Budget")
     );
 
-    // By using a LinkedHashMap
+    // By using a LinkedHashMap we can control the order that the Category buttons appear while also able to make predefined templates when you build a Listing
     public Map<ItemCategory, List<ProductTag>> buildCategoryTagsMap() {
         Map<ItemCategory, List<ProductTag>> map = new LinkedHashMap<>();
         map.put(new ItemCategory("Gender"), genderTags);
