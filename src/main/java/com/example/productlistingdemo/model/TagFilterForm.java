@@ -5,6 +5,7 @@ public class TagFilterForm {
         private String gender;
         private String designer;
         private String brand;
+        private String condition;
 
 
     public String getSearchText() {
@@ -37,6 +38,14 @@ public class TagFilterForm {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 }
 

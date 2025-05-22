@@ -58,6 +58,7 @@ public class ProductController {
             @RequestParam(required = false) String gender,
             @RequestParam(required = false) String designer,
             @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String condition,
             Model model
     ) {
 
@@ -70,6 +71,7 @@ public class ProductController {
                 .filter(p -> gender == null || gender.isEmpty() || p.getGenderTag().equalsIgnoreCase(gender))
                 .filter(p -> designer == null || designer.isEmpty() || p.getDesigner().equalsIgnoreCase(designer))
                 .filter(p -> brand == null || brand.isEmpty() || p.getBrand().equalsIgnoreCase(brand))
+                .filter(p -> condition == null || condition.isEmpty() || p.getBrand().equalsIgnoreCase(condition))
                 .collect(Collectors.toList());
 
 
@@ -77,6 +79,7 @@ public class ProductController {
         model.addAttribute("selectedGender", gender);
         model.addAttribute("selectedDesigner", designer);
         model.addAttribute("selectedBrand", brand);
+        model.addAttribute("selectedCondition", condition);
 
         return "updatedDropdownFilter";
     }
