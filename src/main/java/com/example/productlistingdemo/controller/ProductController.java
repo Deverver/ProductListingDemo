@@ -23,8 +23,6 @@ public class ProductController {
     Map<ItemCategory, List<ProductTag>> categoryTagsMap = mock.buildCategoryTagsMap();
 
 
-
-
     private final List<ProductListing> allProducts = List.of(
             new ProductListing("Men's Running Shoes", "Male", "Nike", "Premium"),
             new ProductListing("Women's Heels", "Female", "Zara", "Budget"),
@@ -49,16 +47,10 @@ public class ProductController {
     );
 
 
-
-
     @GetMapping("/")
     public String home(Model model) {
         return "redirect:/updatedForm";
     }
-
-
-
-
 
     @GetMapping("/updatedForm")
     public String showForm(
@@ -91,10 +83,7 @@ public class ProductController {
 
 
 
-
-
-
-
+    
     @GetMapping("/dropdownForm")
     public String dropdownSearch(
             @RequestParam(required = false) String gender,

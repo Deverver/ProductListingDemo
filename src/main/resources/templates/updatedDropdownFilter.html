@@ -143,10 +143,12 @@
 
             <div class="selected-item">
                 <!-- input containing selected data, sets data into the filter object on submit -->
+                <!-- Exlplanation for; th:field="*{__${...}__}", this is how Thymeleaf can use dynamic field names/values!! -->
                 <label th:for="${#strings.toLowerCase(entry.key.name)}">
                     <input th:field="*{__${#strings.toLowerCase(entry.key.name)}__}"
                            th:id="${#strings.toLowerCase(entry.key.name)}"
                            th:name="${#strings.toLowerCase(entry.key.name)}"
+                           th:placeholder="${(#strings.toLowerCase(entry.key.name) == null or #strings.isEmpty(entry.key.name)) ? 'Missing ' : (entry.key.name)}"
                            th:value="*{__${#strings.toLowerCase(entry.key.name)}__}" readonly="readonly"/>
                 </label>
             </div>
